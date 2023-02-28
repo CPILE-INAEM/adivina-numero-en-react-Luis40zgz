@@ -30,11 +30,21 @@ function App() {
   const handleAgain = () => {
     setScore(20);
     setNumber("");
+    inputRef.current.value = "";
     setSecretNumber(random);
   };
 
+  let estado;
+  if (number === secretNumber) {
+    estado = "win";
+  } else if (score === 0) {
+    estado = "lose";
+  } else {
+    estado = "playing";
+  }
+
   return (
-    <div className="App">
+    <div className={estado}>
       <header>
         <h1>Guess My Number!</h1>
         <p className="between">(Between 1 and 20)</p>
@@ -51,7 +61,7 @@ function App() {
           </button>
         </section>
         <section className="right">
-          <Message number={number} secretNumber={secretNumber} />
+          <Message number={number} secretNumber={secretNumber} score={score} />
           <p className="label-score">
             💯 Score: <span className="score">{score}</span>
           </p>
